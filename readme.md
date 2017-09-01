@@ -133,6 +133,7 @@ Get-AWSCredentials -ListProfiles
 .awsフォルダを作成すればエラーが回避できると書いてあるので本当？　と思いながら試して見る。
 
 Powershellのnew-itemでユーザフォルダの下に.awsフォルダを作成。
+（.(ドット)はじまりのディレクトリを作るのにPowershellを使用してます）
 
 ![](./image/newitem.directory.png)
 
@@ -146,12 +147,14 @@ Get-AWSCredentialsだとAWS SDK Store以外にも資格情報ファイル(.aws)�
 
 ともかくAWSSDKStoreに格納した情報を利用してコマンドを実行するには下記のように行う
 
+セットしたAWSCredentialを利用して、作業を行うには下記のように **-ProfileName** で指定してあげる。
+
 ```powershell
 #EC2インスタンス取得
 Get-EC2Instance -ProfileName プロファイル名 -Region ap-northeast-1
 ```
 
-もしくは
+もしくは **Set-AWSCredentials** でプロセス中使用する資格情報を設定する。
 
 ```powershell
 #プロセス中使う資格情報をセットして
@@ -159,6 +162,27 @@ Set-AWSCredentials -ProfileName プロファイル名
 #EC2インスタンス取得
 Get-EC2Instance -Region ap-northeast-1
 ```
+
+## 🔰現在利用しているプロファイル情報を確認したい場合
+
+Set-AWSCredentialsで利用するプロファイルを設定してから
+
+Get-AWSCredentialsを実行するとAmazon.Runtime.BasicAWSCredentialsなるオブジェクトが返ってくるようになります。
+（Set-AWSCredentialsで利用するプロファイルを設定していないとオブジェクトは返ってきません）
+
+![](image/confirm.now.profile.step001.png)
+
+Amazon.Runtime.BasicAWSCredentialsが何者か見ていくと。
+
+![](image/confirm.now.profile.step002.png)
+
+GetCredentialsというメソッドがある。
+
+これを実行して見ると。
+
+![](image/confirm.now.profile.step003.png)
+
+現在利用している資格情報が表示されます。
 
 ## 資格情報
 
