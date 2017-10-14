@@ -115,7 +115,7 @@ Set-AWSCredentials -StoreAs プロファイル名 -AccessKey アクセスキー 
 
 と設定してやるとAWScredentialsがAWS SDK Storeに登録出来る。
 
-`C:\Users\<username>\AppData\Local\RegisteredAccounts.json`
+`C:\Users\<username>\AppData\Local\AWSToolkit\RegisteredAccounts.json`
 
 ```powershell
 Get-AWSCredentials -ListProfiles
