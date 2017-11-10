@@ -2,11 +2,7 @@
 
 ## 🔰AWS Tools for Windows PowerShell のドキュメント
 
-公式のドキュメントは
-
-[https://aws.amazon.com/jp/documentation/powershell/](https://aws.amazon.com/jp/documentation/powershell/)
-
-にあるのでここをみればOK
+[AWS Tools for Windows PowerShell のドキュメント](https://aws.amazon.com/jp/documentation/powershell/)にあるのでここをみればOK
 
 ## 🔰AWS Tools for Windows PowerShell　のインストール
 
@@ -76,8 +72,10 @@ IAMコンソールから下記のように生成できる。
 
 [Best Practices for Managing AWS Access Keys](http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html)
 
+アクセスキーの作成  
 ![](./image/iam.console.step.001.png)
 
+アクセスキーのダウンロード  
 ![](./image/iam.console.step.002.png)
 
 ## 🔰AWS環境へ接続設定(デフォルト設定)
@@ -122,23 +120,19 @@ Get-AWSCredentials -ListProfiles
 ```
 
 で設定したクレデンシャルが取得できるはずだが。
-何故か下名の環境だとエラー
-
+何故か下名の環境だとエラー  
 ![](./image/error.get.awscredentials.png)
 
-調べたらなんか同じこといってる人がいる。
-
+調べたらなんか同じこといってる人がいる。  
 [Get-AWSCredentials -ListProfiles fails after recent update](https://forums.aws.amazon.com/thread.jspa?threadID=245530)
 
 .awsフォルダを作成すればエラーが回避できると書いてあるので本当？　と思いながら試して見る。
 
 Powershellのnew-itemでユーザフォルダの下に.awsフォルダを作成。
-（.(ドット)はじまりのディレクトリを作るのにPowershellを使用してます）
-
+（.(ドット)はじまりのディレクトリを作るのにPowershellを使用してます）  
 ![](./image/newitem.directory.png)
 
-Get-AWSCredentials -ListProfiles実行
-
+Get-AWSCredentials -ListProfiles実行  
 ![](./image/success.get.awscredentials.png)
 
 なんか動いた。
@@ -168,21 +162,14 @@ Get-EC2Instance -Region ap-northeast-1
 Set-AWSCredentialsで利用するプロファイルを設定してから
 
 Get-AWSCredentialsを実行するとAmazon.Runtime.BasicAWSCredentialsなるオブジェクトが返ってくるようになります。
-（Set-AWSCredentialsで利用するプロファイルを設定していないとオブジェクトは返ってきません）
-
+（Set-AWSCredentialsで利用するプロファイルを設定していないとオブジェクトは返ってきません）  
 ![](image/confirm.now.profile.step001.png)
 
-Amazon.Runtime.BasicAWSCredentialsが何者か見ていくと。
-
+Amazon.Runtime.BasicAWSCredentialsが何者か見ていくとGetCredentialsというメソッドがある。  
 ![](image/confirm.now.profile.step002.png)
 
-GetCredentialsというメソッドがある。
-
-これを実行して見ると。
-
+これを実行して見ると現在利用している資格情報が表示されます。  
 ![](image/confirm.now.profile.step003.png)
-
-現在利用している資格情報が表示されます。
 
 ## 資格情報
 
@@ -191,8 +178,7 @@ AWS Tools for Windows PowerShellで利用できる資格情報は、
 - AWS SDK Store `C:\Users\<username>\AppData\Local\RegisteredAccounts.json`
 - 資格情報ファイル  `C:\Users\username\.aws\credentials`
 
-検索順序は下記参照
-
+検索順序は下記参照  
 [Credentials Search Order](http://docs.aws.amazon.com/ja_jp/powershell/latest/userguide/specifying-your-aws-credentials.html)
 
 今回の例で利用しているのはAWS SDK Storeの方。
@@ -203,8 +189,7 @@ $AWSHistoryは特殊な変数で。
 AWSコマンドレットの呼び出しと、それにより受け取るオブジェクトを保持しています。
 他にも実行時間等のデータも含まれていたりする。
 
-保持する履歴の最大数はSet-AWSHistoryConfigurationで設定できる。
-
+保持する履歴の最大数はSet-AWSHistoryConfigurationで設定できる。  
 ![](./image/awshistory.png)
 
 以上
