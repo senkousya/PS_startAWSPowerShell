@@ -1,4 +1,4 @@
-﻿# 🔰AWS Tools for Windows PowerShellを触ってみる
+﻿# 🔰AWS Tools for Windows PowerShellをさわってみる
 
 ## 🔰AWS Tools for Windows PowerShell のドキュメント
 
@@ -114,6 +114,22 @@ Set-AWSCredentials -StoreAs プロファイル名 -AccessKey アクセスキー 
 と設定してやるとAWScredentialsがAWS SDK Storeに登録出来る。
 
 `C:\Users\<username>\AppData\Local\AWSToolkit\RegisteredAccounts.json`
+
+>2018年3月追記。
+>
+>今現在、記事の下記で利用しているGet-AWSCredentialsのListProfilesパラメータを利用すると廃止する旨の警告が出ます。
+>
+>これからはListProfileDetailを利用しましょう。ListProfileDetailでも同じことが起きるかはちょっと試してないです……
+>
+>![](image/commandWarning.png)
+>
+>うごかしてみると下記のように出力される。
+>
+>![](image/ListProfileDetail.png)
+>
+>追記おしまい。
+
+下記コマンドで登録されているプロファイルの一覧を取得できる。
 
 ```powershell
 Get-AWSCredentials -ListProfiles
