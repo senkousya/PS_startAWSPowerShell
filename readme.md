@@ -251,11 +251,11 @@ Get-EC2Instance -Region ap-northeast-1
 
 Amazon.Runtime.BasicAWSCredentialsを`Get-Member`でどんな物か確認してみると`GetCredentials`というメソッドがある事がわかります。
 
-![](image/confirmProfileStep001.png)
+![](image/confirmProfileStep002.png)
 
 試しにこのメソッドを実行してみます。
 
-![](image/confirmProfileStep001.png)
+![](image/confirmProfileStep003.png)
 
 資格情報が表示されました。
 
