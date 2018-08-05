@@ -189,42 +189,42 @@ Get-S3Bucket -ProfileName プロファイル名 -ProfileLocation 認証情報の
 複数環境を切り替えながら利用する場合。
 毎回`Initialize-AWSDefaults`を切り替える方法もあるが。
 
-それだと大変なので資格情報をAWS SDK Storeに登録し、コマンドレット実行時に資格情報を指定する方法もある。
+それだと大変なので認証情報をAWS SDK Storeに登録し、コマンドレット実行時に指定する方法もある。
 
 ```powershell
 Set-AWSCredentials -StoreAs プロファイル名 -AccessKey アクセスキー -SecretKey シークレットキー
 ```
 
-デフォルトでは下記のファイルに資格情報が追加されます。
+デフォルトでは下記のファイルに認証情報が追加されます。
 `C:\Users\<username>\AppData\Local\AWSToolkit\RegisteredAccounts.json`
 
 [](https://docs.aws.amazon.com/powershell/latest/reference/index.html?page=Set-AWSCredential.html&tocid=Set-AWSCredential)
 
 ## 🔰Get-AWSCredentialで登録されているプロファイルを確認してみる
 
-`Get-AWSCredentials`コマンドレットに`ListProfileDetail`引数をつけて実行すると登録されている資格情報の一覧が取得できます。
+`Get-AWSCredentials`コマンドレットに`ListProfileDetail`引数をつけて実行すると登録されている認証情報の一覧が取得できます。
 `Get-AWSCredentials`コマンドレットには`ListProfile`という似たような事を行う引数もありますが、こちらは現在利用しているVersion 3.3.313.0で実行すると廃止予定と警告が出ているので利用しないでおきましょう。（機能もListProfileDetailのほうがいいですし）
 
 Version 3.3.313.0でListProfileは警告メッセージが表示される  
 ![](image/warningListProfile.png)
 
 ```Powershell
-# Get-AWSCredentialsにListProfileDetailをつけて資格情報の一覧を取得
+# Get-AWSCredentialsにListProfileDetailをつけて認証情報の一覧を取得
 Get-AWSCredentials -ListProfileDetail
 ```
 
 ![](image/ListProfileDetail.png)
 
-上記のように資格情報の一覧が取得できます。
+上記のように認証情報の一覧が取得できます。
 
-なおStoreTypeNameをみれば資格情報が何から読み込まれたのかわかります。
+なおStoreTypeNameをみれば認証情報が何から読み込まれたのかわかります。
 
 - NetSDKCredentialsFile(.NET 認証情報)
 - SharedCredentialsFile(共有認証情報)
 
-## 🔰AWS SDK Storeに登録した資格情報でコマンドレットを実行してみる
+## 🔰AWS SDK Storeに登録した認証情報でコマンドレットを実行してみる
 
-AWS SDK Storeに登録した資格情報を用いてコマンドレットを実行するには`ProfileName`に設定したプロファイル名を渡して実行してあげればよい。
+AWS SDK Storeに登録した認証情報を用いてコマンドレットを実行するには`ProfileName`に設定したプロファイル名を渡して実行してあげればよい。
 
 ```powershell
 # EC2インスタンス取得
@@ -232,10 +232,10 @@ Get-EC2Instance -ProfileName プロファイル名 -Region ap-northeast-1
 ```
 
 毎回コマンドレット実行時にProfileNameを指定してもいいですが。
-下記のように`Set-AWSCredentials`に`ProfileName`を指定するとプロセス中使用する資格情報を指定できたりもします。
+下記のように`Set-AWSCredentials`に`ProfileName`を指定するとプロセス中使用する認証情報を指定できたりもします。
 
 ```powershell
-# プロセス中使う資格情報をセットして
+# プロセス中使う認証情報をセットして
 Set-AWSCredentials -ProfileName プロファイル名
 # 指定されたプロファイルのEC2インスタンス取得
 Get-EC2Instance -Region ap-northeast-1
@@ -243,7 +243,7 @@ Get-EC2Instance -Region ap-northeast-1
 
 ## 🔰プロファイル情報を確認したい場合
 
-`Set-AWSCredentiald`で資格情報を暗号化して登録した後に、復号化してアクセスキーとシークレットキーを確認したい場合。
+`Set-AWSCredentiald`で認証情報を暗号化して登録した後に、復号化してアクセスキーとシークレットキーを確認したい場合。
 
 `Get-AWSCredential -ProfileName プロファイル名`のようにコマンドレットを実行するとAmazon.Runtime.BasicAWSCredentialsなるオブジェクトが返ってくるようになります。(デフォルトが取得した時は引数なしで実行)
 
@@ -257,7 +257,7 @@ Amazon.Runtime.BasicAWSCredentialsを`Get-Member`でどんな物か確認して�
 
 ![](image/confirmProfileStep003.png)
 
-資格情報が表示されました。
+認証情報が表示されました。
 
 BasicAWSCredentialsについて、もっと知りたい場合は下記のようなドキュメントがあります。
 
@@ -269,9 +269,9 @@ BasicAWSCredentialsについて、もっと知りたい場合は下記のよう�
 
 ![](image/errorCredential.png)
 
-## 🔰資格情報の読込順序
+## 🔰認証情報の読込順序
 
-AWS Tools for Windows PowerShellで利用できる資格情報は色々と種類がありましたが、資格情報を検索する順番については下記に資料があります。
+AWS Tools for Windows PowerShellで利用できる認証情報は色々と種類がありましたが、認証情報を検索する順番については下記に資料があります。
 
 [認証情報の検索順序](https://docs.aws.amazon.com/ja_jp/powershell/latest/userguide/specifying-your-aws-credentials.html#pstools-cred-provider-chain)
 
